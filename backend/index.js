@@ -396,7 +396,14 @@ app.post("/api/razorpay/order", async (req, res) => {
     }
 });
 
-app.post("/api/razorpay/verify", async (req, res) => {
+const getDefaultCart = () => {
+    let cart = {};
+    for (let index = 0; index < 300 + 1; index++) {
+      cart[index] = 0;
+    }
+    return cart;
+  };
+app.post("/api/razorpay/verify", fetchUser, async (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -410,6 +417,19 @@ app.post("/api/razorpay/verify", async (req, res) => {
 
     if (isAuthentic) {
         try {
+            console.log("User ID:", req.user.id);
+            // Verify the user using the fetchUser middleware
+            // The user information is available in req.user
+            const user = await Users.findOne({ _id: req.user.id });
+
+            if (user) {
+                // Update the user's cart data
+                user.cartData = getDefaultCart(); // Reset cart to empty or your desired logic
+                await user.save();
+            } else {
+                console.error("User not found while updating cart data.");
+            }
+
             // Update the Order status in the database
             const order = await Order.findOne({ order_id: razorpay_order_id });
             if (order) {
@@ -440,6 +460,7 @@ app.post("/api/razorpay/verify", async (req, res) => {
         res.status(400).json({ success: false, error: "Invalid Signature" });
     }
 });
+
 
 
 

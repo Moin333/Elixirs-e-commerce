@@ -73,6 +73,8 @@ const ShopContextProvider = (props) => {
                     if (verifyData.success) {
                         console.log("Payment verified successfully");
                         // Perform any further actions, such as updating the UI or notifying the user
+                        clearCart();
+                      
                     } else {
                         console.error("Payment verification failed");
                     }
@@ -93,6 +95,24 @@ const ShopContextProvider = (props) => {
     }
 };
 
+const clearCart = () => {
+  setCartItems(getDefaultCart());
+
+  // Additional logic for clearing the cart on the server if needed
+  if (localStorage.getItem("auth-token")) {
+      fetch("http://localhost:4000/clearcart", {
+          method: "POST",
+          headers: {
+              "auth-token": localStorage.getItem("auth-token"),
+              "Content-Type": "application/json",
+          },
+      })
+          .then((response) => response.json())
+          .then((data) => console.log(data));
+  }
+};
+
+
   
   const addToCart = (itemId) => {
     setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
@@ -106,27 +126,39 @@ const ShopContextProvider = (props) => {
         },
         body: JSON.stringify({ itemId: itemId }),
       })
-        .then((response) => response.json())
+        .then((response) => response.text())
         .then((data) => console.log(data));
     }
   };
 
   const removeFromCart = (itemId) => {
-    setCartItems((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-    if (localStorage.getItem("auth-token")) {
-      fetch("http://localhost:4000/removefromcart", {
-        method: "POST",
-        headers: {
-          Accept: "application/form-data",
-          "auth-token": `${localStorage.getItem("auth-token")}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ itemId: itemId }),
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data));
-    }
-  };
+    setCartItems((prev) => {
+        const updatedCart = { ...prev, [itemId]: prev[itemId] - 1 };
+
+        // Remove the item from the cart if the count becomes zero
+        if (updatedCart[itemId] <= 0) {
+            delete updatedCart[itemId];
+        }
+
+        // Additional logic for clearing the cart on the server if needed
+        if (localStorage.getItem("auth-token")) {
+            fetch("http://localhost:4000/removefromcart", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "auth-token": `${localStorage.getItem("auth-token")}`,
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ itemId: itemId }),
+            })
+                .then((response) => response.text())
+                .then((data) => console.log(data));
+        }
+
+        return updatedCart;
+    });
+};
+
 
   const getTotalCartAmount = () => {
     let totalAmount = 0;
