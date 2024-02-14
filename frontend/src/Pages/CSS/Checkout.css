@@ -1,0 +1,95 @@
+/* Checkout.css */
+
+.checkout {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.checkout-container-left {
+  width: 48%; /* Adjust the width as needed */
+  padding: 20px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-right: 2%; /* Adjust the margin as needed */
+  box-sizing: border-box;
+}
+
+h2 {
+  color: #000;
+}
+
+.user-info-section {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+label {
+  display: block;
+  width: 48%; /* Adjust the width as needed */
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
+
+.checkout-button {
+  background-color: #000;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.checkout-button:hover {
+  background-color: #333;
+}
+
+/* Order Summary Section */
+.order-summary {
+  width: 48%; /* Adjust the width as needed */
+  padding: 20px;
+  border: 1px solid #000;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.order-summary h3 {
+  color: #000;
+}
+
+.order-summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.order-total {
+  margin-top: 20px;
+}
+
+.order-total-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.order-total h3 {
+  font-weight: bold;
+}
+
+/* Additional Styling for Order Summary, if needed */
+
+
+  
