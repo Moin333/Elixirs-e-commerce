@@ -32,8 +32,18 @@ const Checkout = () => {
 
   const handleProceedToCheckout = async () => {
     try {
+      // Validate user input
+      const requiredFields = ['email', 'firstName', 'lastName', 'country', 'streetAddress', 'postalCode', 'phoneNumber', 'stateProvince', 'city'];
+  
+      for (const field of requiredFields) {
+        if (!userInfo[field]) {
+          alert(`Please enter ${field}`);
+          return;
+        }
+      }
+  
       // Make the API call to store userInfo in the database
-      const response = await fetch('http://localhost:4000/storeUserInfo', {
+      const response = await fetch('http://localhost:4000/api/checkout/storeUserInfo', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,6 +66,7 @@ const Checkout = () => {
       alert('An unexpected error occurred. Please try again later.');
     }
   };
+  
 
 
   return (

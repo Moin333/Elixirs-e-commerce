@@ -333,7 +333,10 @@ const paymentSchema = new mongoose.Schema({
         type: String,
         default: "Pending",
     },
-    // Add other fields as needed
+    cartData: {
+        type: Object,
+        required: true,
+    },
 });
   
   const Payment = mongoose.model("Payment", paymentSchema);
@@ -485,7 +488,7 @@ const getDefaultCart = () => {
     }
     return cart;
   };
-app.post("/api/razorpay/verify", fetchUser, async (req, res) => {
+  app.post("/api/razorpay/verify", fetchUser, async (req, res) => {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
@@ -505,35 +508,41 @@ app.post("/api/razorpay/verify", fetchUser, async (req, res) => {
             const user = await Users.findOne({ _id: req.user.id });
 
             if (user) {
+                // Save the current cart data before clearing it
+                const cartDataBeforePurchase = { ...user.cartData };
+                
                 // Update the user's cart data
                 user.cartData = getDefaultCart(); // Reset cart to empty or your desired logic
                 await user.save();
-            } else {
-                console.error("User not found while updating cart data.");
-            }
 
-            // Update the Order status in the database
-            const order = await Order.findOne({ order_id: razorpay_order_id });
-            if (order) {
-                // Order found, update the status
-                order.status = "Paid"; // Set your desired status
-                await order.save();
-            } else {
-                // Order not found, create a new order
-                await Order.create({
-                    order_id: razorpay_order_id,
-                    status: "Paid", // Set your desired status
+                // Update the Order status in the database
+                const order = await Order.findOne({ order_id: razorpay_order_id });
+                if (order) {
+                    // Order found, update the status and add cart data
+                    order.status = "Paid"; // Set your desired status
+                    order.cartData = cartDataBeforePurchase;
+                    await order.save();
+                } else {
+                    // Order not found, create a new order with cart data
+                    await Order.create({
+                        order_id: razorpay_order_id,
+                        status: "Paid", // Set your desired status
+                        cartData: cartDataBeforePurchase,
+                    });
+                }
+
+                // Create a Payment record
+                await Payment.create({
+                    razorpay_order_id,
+                    razorpay_payment_id,
+                    razorpay_signature,
                 });
+
+                res.redirect(`http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`);
+            } else {
+                console.error("User not found while updating cart data and creating order.");
+                res.status(500).json({ success: false, error: "Internal Server Error" });
             }
-
-            // Create a Payment record
-            await Payment.create({
-                razorpay_order_id,
-                razorpay_payment_id,
-                razorpay_signature,
-            });
-
-            res.redirect(`http://localhost:3000/paymentsuccess?reference=${razorpay_payment_id}`);
         } catch (error) {
             console.error("Error updating/creating order and payment records:", error);
             res.status(500).json({ success: false, error: "Internal Server Error" });
@@ -542,7 +551,6 @@ app.post("/api/razorpay/verify", fetchUser, async (req, res) => {
         res.status(400).json({ success: false, error: "Invalid Signature" });
     }
 });
-
 
 
 
