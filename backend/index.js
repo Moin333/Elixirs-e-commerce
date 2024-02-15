@@ -363,6 +363,88 @@ const paymentSchema = new mongoose.Schema({
     }
   });
 
+  const UserInfoSchema = new mongoose.Schema({
+    email: {
+      type: String,
+      required: true,
+    },
+    firstName: {
+      type: String,
+      required: true,
+    },
+    lastName: {
+      type: String,
+      required: true,
+    },
+    country: {
+      type: String,
+      required: true,
+    },
+    streetAddress: {
+      type: String,
+      required: true,
+    },
+    postalCode: {
+      type: String,
+      required: true,
+    },
+    phoneNumber: {
+      type: String,
+      required: true,
+    },
+    stateProvince: {
+      type: String,
+      required: true,
+    },
+    city: {
+      type: String,
+      required: true,
+    },
+    // Add other fields as needed
+  });
+  
+  const UserInfo = mongoose.model('UserInfo', UserInfoSchema);
+
+  app.post('/api/checkout/storeUserInfo', async (req, res) => {
+    try {
+      const {
+        email,
+        firstName,
+        lastName,
+        country,
+        streetAddress,
+        postalCode,
+        phoneNumber,
+        stateProvince,
+        city,
+        // Add other fields as needed
+      } = req.body;
+  
+      // Create a new UserInfo document
+      const userInfo = new UserInfo({
+        email,
+        firstName,
+        lastName,
+        country,
+        streetAddress,
+        postalCode,
+        phoneNumber,
+        stateProvince,
+        city,
+        // Add other fields as needed
+      });
+  
+      // Save the document to the database
+      await userInfo.save();
+  
+      console.log("User information saved");
+      res.json({ success: true, message: 'User information stored successfully' });
+    } catch (error) {
+      console.error('Error storing user information:', error);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+  });
+
 app.post("/api/razorpay/order", async (req, res) => {
     try {
       // Fetch the total amount dynamically from the user's cart

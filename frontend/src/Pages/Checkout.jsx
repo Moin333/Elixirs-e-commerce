@@ -30,11 +30,33 @@ const Checkout = () => {
     });
   };
 
-  const handleProceedToCheckout = () => {
-    // Call the initiatePayment function when proceeding to checkout
-    initiatePayment(userInfo);
-    // You can also perform additional validation before proceeding to payment
+  const handleProceedToCheckout = async () => {
+    try {
+      // Make the API call to store userInfo in the database
+      const response = await fetch('http://localhost:4000/storeUserInfo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userInfo),
+      });
+  
+      if (response.ok) {
+        // Call the initiatePayment function when proceeding to checkout
+        initiatePayment(userInfo);
+        // You can also perform additional validation before proceeding to payment
+      } else {
+        console.error('Failed to store user information in the database');
+        // Display a user-friendly error message to the user
+        alert('Failed to proceed to checkout. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error making API call:', error);
+      // Display a user-friendly error message to the user
+      alert('An unexpected error occurred. Please try again later.');
+    }
   };
+
 
   return (
     <div className='checkout'>
