@@ -63,19 +63,19 @@ const Product = mongoose.model("Product", {
     },
     subimage1: {
         type: String,
-        required: true,
+        required: false,
     },
     subimage2: {
         type: String,
-        required: true,
+        required: false,
     },
     subimage3: {
         type: String,
-        required: true,
+        required: false,
     },
     subimage4: {
         type: String,
-        required: true,
+        required: false,
     },
     category: {
         type: String,

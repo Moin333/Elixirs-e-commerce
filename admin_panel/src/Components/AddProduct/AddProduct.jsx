@@ -169,25 +169,25 @@ const AddProduct = () => {
             <label htmlFor='file-input-1'>
                 <img src={subimage1?URL.createObjectURL(subimage1):upload_area} className='addproduct-thumbnail-img1' alt="" />
             </label>
-            <input onChange={(e) => subimageHandler1(e, setSubimage1)} type='file' name='image' id='file-input-1' hidden />
+            <input onChange={(e) => subimageHandler1(e, setSubimage1)} type='file' name='subimage1' id='file-input-1' hidden />
         </div>
         <div className="addproduct-itemfield">
             <label htmlFor='file-input-2'>
                 <img src={subimage2?URL.createObjectURL(subimage2):upload_area} className='addproduct-thumbnail-img2' alt="" />
             </label>
-            <input onChange={(e) => subimageHandler2(e, setSubimage2)} type='file' name='image' id='file-input-2' hidden />
+            <input onChange={(e) => subimageHandler2(e, setSubimage2)} type='file' name='subimage2' id='file-input-2' hidden />
         </div>
         <div className="addproduct-itemfield">
             <label htmlFor='file-input-3'>
                 <img src={subimage3?URL.createObjectURL(subimage3):upload_area} className='addproduct-thumbnail-img3' alt="" />
             </label>
-            <input onChange={(e) => subimageHandler3(e, setSubimage3)} type='file' name='image' id='file-input-3' hidden />
+            <input onChange={(e) => subimageHandler3(e, setSubimage3)} type='file' name='subimage3' id='file-input-3' hidden />
         </div>
         <div className="addproduct-itemfield">
             <label htmlFor='file-input-4'>
                 <img src={subimage4?URL.createObjectURL(subimage4):upload_area} className='addproduct-thumbnail-img4' alt="" />
             </label>
-            <input onChange={(e) => subimageHandler4(e, setSubimage4)} type='file' name='image' id='file-input-4' hidden />
+            <input onChange={(e) => subimageHandler4(e, setSubimage4)} type='file' name='subimage4' id='file-input-4' hidden />
         </div>
         <button onClick={()=>{Add_Product()}} className='addproduct-btn'>ADD</button>
     </div>

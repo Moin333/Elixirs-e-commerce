@@ -1,7 +1,7 @@
 import React from 'react'
 import './Hero.css'
 import arrow_icon from '../Assets/arrow.png'
-import hero_image from '../Assets/hero_image.png'
+import hero_image from '../Assets/Crocodila_Black_Front-removebg.png'
 
 const Hero = () => {
   return (

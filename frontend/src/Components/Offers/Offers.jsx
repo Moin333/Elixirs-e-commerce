@@ -1,6 +1,6 @@
 import React from 'react'
 import './Offers.css'
-import exclusive_image from '../Assets/exclusive_image.png'
+import exclusive_image from '../Assets/51Pv28sRKzL._SY695_-removebg.png'
 
 const Offers = () => {
   return (

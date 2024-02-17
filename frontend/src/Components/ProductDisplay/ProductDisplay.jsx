@@ -37,19 +37,12 @@ const ProductDisplay = (props) => {
             <div className="productdisplay-right-description">
                 <h3>{product.description}</h3>
             </div>
-            <div className="productdisplay-right-size">
-                <h1>Select Size</h1>
-                <div className="productdisplay-right-sizes">
-                    <div>S</div>
-                    <div>M</div>
-                    <div>L</div>
-                    <div>XL</div>
-                    <div>XXL</div>
-                </div>
+            <div className="productdisplay-tagline">
+              <h1>Live a Life of Luxury!!!</h1>
             </div>
             <button onClick={()=>{addToCart(product.id)}}>ADD TO CART</button>
-            <p className='productdisplay-right-category'><span>Category:</span>Women , T-Shirt, Crop Top</p>
-            <p className='productdisplay-right-category'><span>Tags:</span>Modern ,latest</p>
+            <p className='productdisplay-right-category'><span>Category:</span> Women , Collection, Bags</p>
+            <p className='productdisplay-right-category'><span>Tags:</span> Modern , Asthetic</p>
         </div>
     </div>
   )
