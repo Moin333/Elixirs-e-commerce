@@ -14,7 +14,7 @@ const crypto = require('crypto');
 app.use(express.json());
 app.use(cors());
 
-mongoose.connect("mongodb+srv://Moin_Ansari:moin123@cluster0.2p18z40.mongodb.net/e-commerce");
+mongoose.connect("mongodb+srv://");//Add you mongodb connect key here.
 
 const storage = multer.diskStorage({
     destination: './upload/images',
