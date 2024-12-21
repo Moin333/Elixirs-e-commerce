@@ -179,12 +179,19 @@ Razorpay Account
 
 ## Demo Video
 
+### Login/SignUp Page
 ![Demo Preview](/project-demo-link2.gif)
+### Home Page
 ![Demo Preview](/project-demo-link1.gif)
+### Category Page
 ![Demo Preview](/project-demo-link3.gif)
+### Product Page
 ![Demo Preview](/project-demo-link4.gif)
+### Cart Page
 ![Demo Preview](/project-demo-link5.gif)
+### Checkout Page
 ![Demo Preview](/project-demo-link6.gif)
+### Admin Panel
 ![Demo Preview](/project-demo-link7.gif)
 
 ---
