@@ -179,14 +179,13 @@ Razorpay Account
 
 ## Demo Video
 
-<video width="100%" controls>
-  <source src="project-demo-link1.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-<video width="100%" controls>
-  <source src="project-demo-link2.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+![Demo Preview](/project-demo-link2.gif)
+![Demo Preview](/project-demo-link1.gif)
+![Demo Preview](/project-demo-link3.gif)
+![Demo Preview](/project-demo-link4.gif)
+![Demo Preview](/project-demo-link5.gif)
+![Demo Preview](/project-demo-link6.gif)
+![Demo Preview](/project-demo-link7.gif)
 
 ---
 
